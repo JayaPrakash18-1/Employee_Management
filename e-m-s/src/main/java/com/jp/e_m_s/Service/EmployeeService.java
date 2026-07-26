@@ -1,4 +1,6 @@
 package com.jp.e_m_s.Service;
+import com.jp.e_m_s.DTO.EmployeeRequestDTO;
+import com.jp.e_m_s.DTO.EmployeeResponseDTO;
 import com.jp.e_m_s.Entity.Employee;
 import com.jp.e_m_s.Exception.EmployeeNotFoundException;
 import com.jp.e_m_s.Repository.EmployeeRepository;
@@ -15,8 +17,39 @@ public class EmployeeService {
     public EmployeeService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
-    public Employee saveEmployee(Employee employee) {
-          return employeeRepository.save(employee);
+    public EmployeeResponseDTO saveEmployee(EmployeeRequestDTO requestDTO) {
+        Employee employee=new Employee();
+        employee.setFirstName(requestDTO.getFirstName());
+        employee.setLastName(requestDTO.getLastName());
+        employee.setEmail(requestDTO.getEmail());
+        employee.setPhoneNumber(requestDTO.getPhoneNumber());
+        employee.setGender(requestDTO.getGender());
+        employee.setDateOfBirth(requestDTO.getDateOfBirth());
+        employee.setBloodGroup(requestDTO.getBloodGroup());
+        employee.setAddress(requestDTO.getAddress());
+        employee.setDesignation(requestDTO.getDesignation());
+        employee.setJoiningDate(requestDTO.getJoiningDate());
+        employee.setSalary(requestDTO.getSalary());
+        employee.setStatus(requestDTO.getStatus());
+        Employee savedEmployee=employeeRepository.save(employee);
+        EmployeeResponseDTO response = new EmployeeResponseDTO();
+
+        response.setEmployeeId(savedEmployee.getEmployeeId());
+        response.setFirstName(savedEmployee.getFirstName());
+        response.setLastName(savedEmployee.getLastName());
+        response.setEmail(savedEmployee.getEmail());
+        response.setPhoneNumber(savedEmployee.getPhoneNumber());
+        response.setGender(savedEmployee.getGender());
+        response.setDateOfBirth(savedEmployee.getDateOfBirth());
+        response.setBloodGroup(savedEmployee.getBloodGroup());
+        response.setAddress(savedEmployee.getAddress());
+        response.setDesignation(savedEmployee.getDesignation());
+        response.setJoiningDate(savedEmployee.getJoiningDate());
+        response.setSalary(savedEmployee.getSalary());
+        response.setStatus(savedEmployee.getStatus());
+
+        return response;
+
 
     }
     public List<Employee> getAllEmployees() {

@@ -1,5 +1,7 @@
 package com.jp.e_m_s.Controller;
 
+import com.jp.e_m_s.DTO.EmployeeRequestDTO;
+import com.jp.e_m_s.DTO.EmployeeResponseDTO;
 import com.jp.e_m_s.Entity.Employee;
 import com.jp.e_m_s.Service.EmployeeService;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +16,8 @@ public class EmployeeController {
          empservice=ser;
      }
     @PostMapping
-    public Employee saveEmployee(@RequestBody Employee employee){
-         return empservice.saveEmployee(employee);
+    public EmployeeResponseDTO saveEmployee(@RequestBody EmployeeRequestDTO requestDTO) {
+        return empservice.saveEmployee(requestDTO);
     }
     @GetMapping
     public List<Employee> getAllEmployee(){
