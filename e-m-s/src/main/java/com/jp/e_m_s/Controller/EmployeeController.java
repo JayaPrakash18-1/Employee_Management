@@ -4,6 +4,7 @@ import com.jp.e_m_s.DTO.EmployeeRequestDTO;
 import com.jp.e_m_s.DTO.EmployeeResponseDTO;
 import com.jp.e_m_s.Entity.Employee;
 import com.jp.e_m_s.Service.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class EmployeeController {
          empservice=ser;
      }
     @PostMapping
-    public EmployeeResponseDTO saveEmployee(@RequestBody EmployeeRequestDTO requestDTO) {
+    public EmployeeResponseDTO saveEmployee(@Valid @RequestBody EmployeeRequestDTO requestDTO) {
         return empservice.saveEmployee(requestDTO);
     }
     @GetMapping

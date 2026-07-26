@@ -6,6 +6,7 @@ import com.jp.e_m_s.Exception.EmployeeNotFoundException;
 import com.jp.e_m_s.Repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,7 +30,7 @@ public class EmployeeService {
         employee.setAddress(requestDTO.getAddress());
         employee.setDesignation(requestDTO.getDesignation());
         employee.setJoiningDate(requestDTO.getJoiningDate());
-        employee.setSalary(requestDTO.getSalary());
+        employee.setSalary(BigDecimal.valueOf(requestDTO.getSalary()));
         employee.setStatus(requestDTO.getStatus());
         Employee savedEmployee=employeeRepository.save(employee);
         EmployeeResponseDTO response = new EmployeeResponseDTO();
