@@ -1,5 +1,6 @@
 package com.jp.e_m_s.Service;
 import com.jp.e_m_s.Entity.Employee;
+import com.jp.e_m_s.Exception.EmployeeNotFoundException;
 import com.jp.e_m_s.Repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,13 +24,10 @@ public class EmployeeService {
     }
     public Employee getEmployeeById(Long id) {
 
-        Optional<Employee> employee = employeeRepository.findById(id);
-
-        if (employee.isPresent()) {
-            return employee.get();
-        }
-
-        return null;
+        return employeeRepository.findById(id)
+                .orElseThrow(() ->
+                        new EmployeeNotFoundException(
+                                "Employee not found with id : " + id));
     }
     public Employee updateEmployee(Long id, Employee updatedEmployee) {
 
@@ -59,13 +57,13 @@ public class EmployeeService {
     }
     public String deleteEmployee(Long id) {
 
-        Optional<Employee> optionalEmployee = employeeRepository.findById(id);
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() ->
+                        new EmployeeNotFoundException(
+                                "Employee not found with id : " + id));
 
-        if (optionalEmployee.isPresent()) {
-            employeeRepository.deleteById(id);
-            return "Employee Deleted Successfully";
-        }
+        employeeRepository.delete(employee);
 
-        return "Employee Not Found";
+        return "Employee Deleted Successfully";
     }
 }
