@@ -50,4 +50,6 @@ public class EmployeeRequestDTO {
 
     @NotNull(message = "Employee status is required")
     private EmployeeStatus status;
+    @NotNull(message = "Department is required")
+    private Long departmentId;
 }

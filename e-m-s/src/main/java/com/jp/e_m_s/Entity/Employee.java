@@ -55,8 +55,8 @@ public class Employee {
     private EmployeeStatus status;
 
     // We will add this after creating Department entity
-    // @ManyToOne
-    // @JoinColumn(name = "department_id")
-    // private Department department;
+     @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
 
 }
