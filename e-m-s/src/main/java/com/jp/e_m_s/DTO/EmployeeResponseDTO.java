@@ -38,5 +38,5 @@ public class EmployeeResponseDTO {
     private BigDecimal salary;
 
     private EmployeeStatus status;
-    private String DepartmentName;
+    private String departmentName;
 }

@@ -38,41 +38,42 @@ public class EmployeeService {
         return employeeMapper.toResponse(savedEmployee);
 
     }
-    public List<Employee> getAllEmployees() {
-        return employeeRepository.findAll();
-    }
-    public Employee getEmployeeById(Long id) {
+    public List<EmployeeResponseDTO> getAllEmployees() {
 
-        return employeeRepository.findById(id)
+        return employeeRepository.findAll()
+                .stream()
+                .map(employeeMapper::toResponse)
+                .toList();
+
+    }
+    public EmployeeResponseDTO getEmployeeById(Long id) {
+
+        Employee employee = employeeRepository.findById(id)
                 .orElseThrow(() ->
                         new EmployeeNotFoundException(
                                 "Employee not found with id : " + id));
+
+        return employeeMapper.toResponse(employee);
+
     }
-    public Employee updateEmployee(Long id, Employee updatedEmployee) {
+    public EmployeeResponseDTO updateEmployee(Long id,
+                                              EmployeeRequestDTO requestDTO) {
 
-        Optional<Employee> optionalEmployee = employeeRepository.findById(id);
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() ->
+                        new EmployeeNotFoundException(
+                                "Employee not found with id : " + id));
 
-        if (optionalEmployee.isPresent()) {
+        Department department = departmentRepository.findById(requestDTO.getDepartmentId())
+                .orElseThrow(() ->
+                        new RuntimeException("Department not found"));
 
-            Employee employee = optionalEmployee.get();
+        employeeMapper.updateEntity(employee, requestDTO, department);
 
-            employee.setFirstName(updatedEmployee.getFirstName());
-            employee.setLastName(updatedEmployee.getLastName());
-            employee.setEmail(updatedEmployee.getEmail());
-            employee.setPhoneNumber(updatedEmployee.getPhoneNumber());
-            employee.setGender(updatedEmployee.getGender());
-            employee.setDateOfBirth(updatedEmployee.getDateOfBirth());
-            employee.setBloodGroup(updatedEmployee.getBloodGroup());
-            employee.setAddress(updatedEmployee.getAddress());
-            employee.setDesignation(updatedEmployee.getDesignation());
-            employee.setJoiningDate(updatedEmployee.getJoiningDate());
-            employee.setSalary(updatedEmployee.getSalary());
-            employee.setStatus(updatedEmployee.getStatus());
+        Employee updatedEmployee = employeeRepository.save(employee);
 
-            return employeeRepository.save(employee);
-        }
+        return employeeMapper.toResponse(updatedEmployee);
 
-        return null;
     }
     public String deleteEmployee(Long id) {
 

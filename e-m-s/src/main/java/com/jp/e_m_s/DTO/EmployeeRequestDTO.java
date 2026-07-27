@@ -7,6 +7,7 @@ import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Getter
@@ -46,7 +47,7 @@ public class EmployeeRequestDTO {
     private LocalDate joiningDate;
 
     @Positive(message = "Salary must be greater than 0")
-    private double salary;
+    private BigDecimal salary;
 
     @NotNull(message = "Employee status is required")
     private EmployeeStatus status;

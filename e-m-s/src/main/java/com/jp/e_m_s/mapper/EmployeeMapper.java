@@ -25,7 +25,7 @@ public class EmployeeMapper {
         employee.setAddress(request.getAddress());
         employee.setDesignation(request.getDesignation());
         employee.setJoiningDate(request.getJoiningDate());
-        employee.setSalary(BigDecimal.valueOf(request.getSalary()));
+        employee.setSalary(request.getSalary());
         employee.setStatus(request.getStatus());
 
         employee.setDepartment(department);
@@ -53,5 +53,24 @@ public class EmployeeMapper {
         response.setDepartmentName(employee.getDepartment().getDepartmentName());
 
         return response;
+    }
+    public void updateEntity(Employee employee,
+                             EmployeeRequestDTO request,
+                             Department department){
+
+        employee.setFirstName(request.getFirstName());
+        employee.setLastName(request.getLastName());
+        employee.setEmail(request.getEmail());
+        employee.setPhoneNumber(request.getPhoneNumber());
+        employee.setGender(request.getGender());
+        employee.setDateOfBirth(request.getDateOfBirth());
+        employee.setBloodGroup(request.getBloodGroup());
+        employee.setAddress(request.getAddress());
+        employee.setDesignation(request.getDesignation());
+        employee.setJoiningDate(request.getJoiningDate());
+        employee.setSalary(request.getSalary());
+        employee.setStatus(request.getStatus());
+        employee.setDepartment(department);
+
     }
 }

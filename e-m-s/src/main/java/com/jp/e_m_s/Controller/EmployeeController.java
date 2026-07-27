@@ -21,16 +21,16 @@ public class EmployeeController {
         return empservice.saveEmployee(requestDTO);
     }
     @GetMapping
-    public List<Employee> getAllEmployee(){
+    public List<EmployeeResponseDTO> getAllEmployee(){
          return empservice.getAllEmployees();
     }
     @GetMapping("/{id}")
-    public Employee getEmployeeById(@PathVariable Long id) {
+    public EmployeeResponseDTO getEmployeeById(@PathVariable Long id) {
         return empservice.getEmployeeById(id);
     }
     @PutMapping("/{id}")
-    public Employee updateEmployee(@PathVariable Long id,
-                                   @RequestBody Employee employee) {
+    public EmployeeResponseDTO updateEmployee(@PathVariable Long id,
+                                   @RequestBody EmployeeRequestDTO employee) {
 
         return empservice.updateEmployee(id, employee);
     }
