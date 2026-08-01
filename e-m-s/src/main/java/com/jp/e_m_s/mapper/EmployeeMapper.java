@@ -51,6 +51,7 @@ public class EmployeeMapper {
         response.setSalary(employee.getSalary());
         response.setStatus(employee.getStatus());
         response.setDepartmentName(employee.getDepartment().getDepartmentName());
+        response.setDepartmentId(employee.getDepartment().getDepartmentId());
 
         return response;
     }
@@ -71,6 +72,7 @@ public class EmployeeMapper {
         employee.setSalary(request.getSalary());
         employee.setStatus(request.getStatus());
         employee.setDepartment(department);
+
 
     }
 }

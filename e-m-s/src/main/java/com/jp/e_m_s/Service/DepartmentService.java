@@ -1,95 +1,93 @@
 package com.jp.e_m_s.Service;
 
-import com.jp.e_m_s.Entity.Department;
-import com.jp.e_m_s.Repository.DepartmentRepository;
 import com.jp.e_m_s.DTO.DepartmentRequestDTO;
 import com.jp.e_m_s.DTO.DepartmentResponseDTO;
+import com.jp.e_m_s.Entity.Department;
+import com.jp.e_m_s.Exception.DepartmentNotFoundException;
+import com.jp.e_m_s.Repository.DepartmentRepository;
+import com.jp.e_m_s.mapper.DepartmentMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class DepartmentService {
 
     private final DepartmentRepository departmentRepository;
+    private final DepartmentMapper departmentMapper;
 
-    public DepartmentService(DepartmentRepository departmentRepository) {
+    public DepartmentService(DepartmentRepository departmentRepository,
+                             DepartmentMapper departmentMapper) {
         this.departmentRepository = departmentRepository;
+        this.departmentMapper = departmentMapper;
     }
 
+    // Create Department
     public DepartmentResponseDTO createDepartment(DepartmentRequestDTO request) {
 
-        Department department = new Department();
-
-        department.setDepartmentName(request.getDepartmentName());
-        department.setDepartmentCode(request.getDepartmentCode());
-        department.setLocation(request.getLocation());
+        Department department = departmentMapper.toEntity(request);
 
         Department savedDepartment = departmentRepository.save(department);
 
-        DepartmentResponseDTO response = new DepartmentResponseDTO();
-
-        response.setDepartmentId(savedDepartment.getDepartmentId());
-        response.setDepartmentName(savedDepartment.getDepartmentName());
-        response.setDepartmentCode(savedDepartment.getDepartmentCode());
-        response.setLocation(savedDepartment.getLocation());
-
-        return response;
+        return departmentMapper.toResponse(savedDepartment);
     }
 
+    // Get All Departments
     public List<DepartmentResponseDTO> getAllDepartments() {
 
         return departmentRepository.findAll()
                 .stream()
-                .map(this::mapToResponse)
-                .collect(Collectors.toList());
+                .map(departmentMapper::toResponse)
+                .toList();
     }
 
+    // Get Department By Id
     public DepartmentResponseDTO getDepartmentById(Long id) {
 
         Department department = departmentRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Department not found"));
+                        new DepartmentNotFoundException(
+                                "Department not found with id : " + id));
 
-        return mapToResponse(department);
+        return departmentMapper.toResponse(department);
     }
 
+    // Update Department
     public DepartmentResponseDTO updateDepartment(Long id,
                                                   DepartmentRequestDTO request) {
 
         Department department = departmentRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Department not found"));
+                        new DepartmentNotFoundException(
+                                "Department not found with id : " + id));
 
-        department.setDepartmentName(request.getDepartmentName());
-        department.setDepartmentCode(request.getDepartmentCode());
-        department.setLocation(request.getLocation());
+        departmentMapper.updateEntity(department, request);
 
-        return mapToResponse(departmentRepository.save(department));
+        Department updatedDepartment = departmentRepository.save(department);
+
+        return departmentMapper.toResponse(updatedDepartment);
     }
 
-    public String deleteDepartment(Long id){
+    // Delete Department
+    public String deleteDepartment(Long id) {
 
-        Department department=departmentRepository.findById(id)
-                .orElseThrow(()->
-                        new RuntimeException("Department not found"));
+        Department department = departmentRepository.findById(id)
+                .orElseThrow(() ->
+                        new DepartmentNotFoundException(
+                                "Department not found with id : " + id));
 
         departmentRepository.delete(department);
 
         return "Department Deleted Successfully";
     }
 
-    private DepartmentResponseDTO mapToResponse(Department department){
+    // Search Department By Name
+    public List<DepartmentResponseDTO> searchDepartmentByName(String name) {
 
-        DepartmentResponseDTO response=new DepartmentResponseDTO();
-
-        response.setDepartmentId(department.getDepartmentId());
-        response.setDepartmentName(department.getDepartmentName());
-        response.setDepartmentCode(department.getDepartmentCode());
-        response.setLocation(department.getLocation());
-
-        return response;
+        return departmentRepository
+                .findByDepartmentNameContainingIgnoreCase(name)
+                .stream()
+                .map(departmentMapper::toResponse)
+                .toList();
     }
-
 }

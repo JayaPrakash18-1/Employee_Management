@@ -39,4 +39,5 @@ public class EmployeeResponseDTO {
 
     private EmployeeStatus status;
     private String departmentName;
+    private Long departmentId;
 }

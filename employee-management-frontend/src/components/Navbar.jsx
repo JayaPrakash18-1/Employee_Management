@@ -9,22 +9,50 @@ function Navbar() {
             <div className="container">
 
                 <Link className="navbar-brand" to="/">
-                    EMS
+                    Employee Management System
                 </Link>
 
-                <div className="navbar-nav">
+                <button
+                    className="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav">
 
-                    <Link className="nav-link" to="/">
-                        Dashboard
-                    </Link>
+                    <span className="navbar-toggler-icon"></span>
 
-                    <Link className="nav-link" to="/employees">
-                        Employees
-                    </Link>
+                </button>
 
-                    <Link className="nav-link" to="/departments">
-                        Departments
-                    </Link>
+                <div
+                    className="collapse navbar-collapse"
+                    id="navbarNav">
+
+                    <ul className="navbar-nav ms-auto">
+
+                        <li className="nav-item">
+
+                            <Link className="nav-link" to="/">
+                                Dashboard
+                            </Link>
+
+                        </li>
+
+                        <li className="nav-item">
+
+                            <Link className="nav-link" to="/employees">
+                                Employees
+                            </Link>
+
+                        </li>
+
+                        <li className="nav-item">
+
+                            <Link className="nav-link" to="/departments">
+                                Departments
+                            </Link>
+
+                        </li>
+
+                    </ul>
 
                 </div>
 

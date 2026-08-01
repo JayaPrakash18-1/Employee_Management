@@ -48,7 +48,7 @@ public class Employee {
 
     private LocalDate joiningDate;
 
-    @Min(1)
+    @Min(10000)
     private BigDecimal salary;
 
     @Enumerated(EnumType.STRING)
