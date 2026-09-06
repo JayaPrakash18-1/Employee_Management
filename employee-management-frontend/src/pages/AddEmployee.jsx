@@ -22,8 +22,11 @@ function AddEmployee() {
         joiningDate: "",
         salary: "",
         status: "ACTIVE",
-        departmentId: ""
+        departmentId: "",
+        password:"",
+        role:"EMPLOYEE"
     });
+
 
     useEffect(() => {
 
@@ -281,6 +284,32 @@ function AddEmployee() {
                                 </select>
 
                             </div>
+                            <div className="mb-3">
+    <label className="form-label">Password</label>
+
+    <input
+        type="password"
+        className="form-control"
+        name="password"
+        value={employee.password}
+        onChange={handleChange}
+        required
+    />
+</div>
+<div className="mb-3">
+    <label className="form-label">Role</label>
+
+    <select
+        className="form-control"
+        name="role"
+        value={employee.role}
+        onChange={handleChange}
+        required
+    >
+        <option value="EMPLOYEE">EMPLOYEE</option>
+        <option value="ADMIN">ADMIN</option>
+    </select>
+</div>
 
                             <div className="col-md-12 mb-3">
 

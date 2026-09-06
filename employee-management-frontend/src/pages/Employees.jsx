@@ -20,7 +20,7 @@ function Employees() {
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [currentPage, setCurrentPage] = useState(0);
-    const [pageSize] = useState(1);
+    const [pageSize] = useState(10);
     const [totalPages, setTotalPages] = useState(0);
 
    useEffect(() => {
@@ -87,30 +87,32 @@ const changePage = (page) => {
         }
     };
 
-    const searchEmployee = () => {
-        if (searchText.trim() === "") {
-            getAllEmployees();
-            return;
-        }
+   const searchEmployee = () => {
+    if (searchText.trim() === "") {
+        getAllEmployees();
+        return;
+    }
 
-        if (searchType === "name") {
-            EmployeeService.searchEmployeeByName(searchText)
-                .then((response) => {
-                    setEmployees(response.data);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        } else {
-            EmployeeService.searchEmployeeByEmail(searchText)
-                .then((response) => {
-                    setEmployees(response.data);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
-    };
+    if (searchType === "name") {
+        EmployeeService.searchEmployeeByName(searchText)
+            .then((response) => {
+                setEmployees(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+                setEmployees([]);
+            });
+    } else {
+        EmployeeService.searchEmployeeByEmail(searchText)
+            .then((response) => {
+                setEmployees([response.data]);
+            })
+            .catch((error) => {
+                console.log(error);
+                setEmployees([]);
+            });
+    }
+};
 
     const sortEmployees = () => {
         EmployeeService.sortEmployees(sortField, sortDirection)

@@ -1,59 +1,64 @@
-import axios from "axios";
+import api from "../api";
 
-const BASE_URL = "http://localhost:8080/employees";
+const BASE_URL = "/employees";
 
 class EmployeeService {
 
     getAllEmployees(page, size) {
-    return axios.get(`${BASE_URL}?page=${page}&size=${size}`);
-}
+        return api.get(`${BASE_URL}?page=${page}&size=${size}`);
+    }
 
     createEmployee(employee) {
-        return axios.post(BASE_URL, employee);
+        return api.post(BASE_URL, employee);
     }
 
     getEmployeeById(id) {
-        return axios.get(`${BASE_URL}/${id}`);
+        return api.get(`${BASE_URL}/${id}`);
     }
 
     updateEmployee(id, employee) {
-        return axios.put(`${BASE_URL}/${id}`, employee);
+        return api.put(`${BASE_URL}/${id}`, employee);
     }
 
     deleteEmployee(id) {
-        return axios.delete(`${BASE_URL}/${id}`);
+        return api.delete(`${BASE_URL}/${id}`);
     }
-    searchEmployeeByName(name) {
-    return axios.get(`${BASE_URL}/search/name?name=${name}`);
-}
 
-searchEmployeeByEmail(email) {
-    return axios.get(`${BASE_URL}/search/email?email=${email}`);
-}
-sortEmployees(field, direction) {
-    return axios.get(`${BASE_URL}/sort?field=${field}&direction=${direction}`);
-}
-filterEmployees(
-    departmentId,
-    status,
-    gender,
-    minSalary,
-    maxSalary,
-    startDate,
-    endDate
-) {
-    return axios.get(`${BASE_URL}/filter`, {
-        params: {
-            departmentId,
-            status,
-            gender,
-            minSalary,
-            maxSalary,
-            startDate,
-            endDate
-        }
-    });
-}
+    searchEmployeeByName(name) {
+        return api.get(`${BASE_URL}/search/name?name=${name}`);
+    }
+
+    searchEmployeeByEmail(email) {
+        return api.get(`${BASE_URL}/search/email?email=${email}`);
+    }
+
+    sortEmployees(field, direction) {
+        return api.get(
+            `${BASE_URL}/sort?field=${field}&direction=${direction}`
+        );
+    }
+
+    filterEmployees(
+        departmentId,
+        status,
+        gender,
+        minSalary,
+        maxSalary,
+        startDate,
+        endDate
+    ) {
+        return api.get(`${BASE_URL}/filter`, {
+            params: {
+                departmentId,
+                status,
+                gender,
+                minSalary,
+                maxSalary,
+                startDate,
+                endDate
+            }
+        });
+    }
 }
 
 export default new EmployeeService();

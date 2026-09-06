@@ -1,7 +1,14 @@
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { getCurrentUserRole } from "../auth";
 
 function Navbar() {
-
+const navigate = useNavigate();
+const role=getCurrentUserRole();
+const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+};
     return (
 
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -36,6 +43,9 @@ function Navbar() {
 
                         </li>
 
+                      {role=="ROLE_ADMIN" && ( 
+                        <>
+                        
                         <li className="nav-item">
 
                             <Link className="nav-link" to="/employees">
@@ -51,8 +61,28 @@ function Navbar() {
                             </Link>
 
                         </li>
+                        </>
+                        )}
+                        <li className="nav-item">
+
+                            <Link className="nav-link" to="/leaves"> 
+                                Leaves
+                            
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/attendance">
+                                Attendance
+                            </Link>
+                        </li> 
 
                     </ul>
+                    <button
+    className="btn btn-danger"
+    onClick={handleLogout}
+>
+    Logout
+</button>
 
                 </div>
 

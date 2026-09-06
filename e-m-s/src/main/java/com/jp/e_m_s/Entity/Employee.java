@@ -48,13 +48,21 @@ public class Employee {
 
     private LocalDate joiningDate;
 
-    @Min(10000)
+    @Min(15000)
     private BigDecimal salary;
 
     @Enumerated(EnumType.STRING)
     private EmployeeStatus status;
 
-    // We will add this after creating Department entity
+
+
+
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+
      @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;

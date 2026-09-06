@@ -3,6 +3,7 @@ package com.jp.e_m_s.DTO;
 import com.jp.e_m_s.Entity.BloodGroup;
 import com.jp.e_m_s.Entity.EmployeeStatus;
 import com.jp.e_m_s.Entity.Gender;
+import com.jp.e_m_s.Entity.Role;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -53,4 +54,10 @@ public class EmployeeRequestDTO {
     private EmployeeStatus status;
     @NotNull(message = "Department is required")
     private Long departmentId;
+
+    @NotBlank
+    private String password;
+
+    @NotNull
+    private Role role;
 }

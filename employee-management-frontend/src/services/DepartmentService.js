@@ -1,29 +1,28 @@
-import axios from "axios";
+import api from "../api";
 
-const BASE_URL = "http://localhost:8080/departments";
+const BASE_URL = "/departments";
 
 class DepartmentService {
 
     getAllDepartments() {
-        return axios.get(BASE_URL);
+        return api.get(BASE_URL);
     }
 
     createDepartment(department) {
-        return axios.post(BASE_URL, department);
+        return api.post(BASE_URL, department);
     }
 
     getDepartmentById(id) {
-        return axios.get(`${BASE_URL}/${id}`);
+        return api.get(`${BASE_URL}/${id}`);
     }
 
     updateDepartment(id, department) {
-        return axios.put(`${BASE_URL}/${id}`, department);
+        return api.put(`${BASE_URL}/${id}`, department);
     }
 
     deleteDepartment(id) {
-        return axios.delete(`${BASE_URL}/${id}`);
+        return api.delete(`${BASE_URL}/${id}`);
     }
-
 }
 
 export default new DepartmentService();

@@ -11,6 +11,7 @@ import com.jp.e_m_s.Repository.EmployeeRepository;
 import com.jp.e_m_s.mapper.EmployeeMapper;
 import com.jp.e_m_s.specification.EmployeeSpecification;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Sort;
 import java.math.BigDecimal;
@@ -26,11 +27,13 @@ public class EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final DepartmentRepository departmentRepository;
     private final EmployeeMapper employeeMapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public EmployeeService(EmployeeRepository employeeRepository,DepartmentRepository departmentRepository,EmployeeMapper employeeMapper) {
+    public EmployeeService(EmployeeRepository employeeRepository, DepartmentRepository departmentRepository, EmployeeMapper employeeMapper, PasswordEncoder passwordEncoder) {
         this.employeeRepository = employeeRepository;
         this.departmentRepository=departmentRepository;
         this.employeeMapper=employeeMapper;
+        this.passwordEncoder = passwordEncoder;
     }
     public EmployeeResponseDTO saveEmployee(EmployeeRequestDTO requestDTO) {
 
@@ -39,6 +42,9 @@ public class EmployeeService {
                 .orElseThrow(() -> new RuntimeException("Department not found"));
 
         Employee employee = employeeMapper.toEntity(requestDTO, department);
+          employee.setPassword(
+                passwordEncoder.encode(requestDTO.getPassword())
+            );
 
         Employee savedEmployee = employeeRepository.save(employee);
 

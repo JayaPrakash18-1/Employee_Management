@@ -13,10 +13,10 @@ import java.util.Optional;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long>,
         JpaSpecificationExecutor<Employee> {
-
+    Optional<Employee> findByEmail(String email);
     // Search by Name
     List<Employee> findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(
-            String firstName,
+            String firstName,       
             String lastName
     );
     List<Employee> findByDepartmentDepartmentId(Long departmentId);

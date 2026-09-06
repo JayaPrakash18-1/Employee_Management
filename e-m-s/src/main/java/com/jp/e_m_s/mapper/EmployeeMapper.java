@@ -27,8 +27,10 @@ public class EmployeeMapper {
         employee.setJoiningDate(request.getJoiningDate());
         employee.setSalary(request.getSalary());
         employee.setStatus(request.getStatus());
+        employee.setRole(request.getRole());
 
         employee.setDepartment(department);
+
 
         return employee;
     }

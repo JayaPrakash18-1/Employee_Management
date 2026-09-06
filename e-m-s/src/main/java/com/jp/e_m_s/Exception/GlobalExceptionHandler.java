@@ -42,4 +42,9 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
+    @ExceptionHandler(LeaveNotFoundException.class)
+    public ResponseEntity<String> handleleaveNotFound(LeaveNotFoundException ex){
+        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
+    }
+
 }
