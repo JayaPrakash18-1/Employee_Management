@@ -1,99 +1,141 @@
 
-
 # Employee Management System
 
 ## About the Project
 
-This is a full-stack Employee Management System developed using **React**, **Spring Boot**, and **PostgreSQL**. The application helps manage employee and department information through a simple and user-friendly interface.
+Employee Management System is a full-stack web application developed using React, Spring Boot, and PostgreSQL. The application provides a centralised platform for managing employees, departments, attendance, and leave requests.
 
-The project follows a layered architecture using Controller, Service, Repository, DTO, and Mapper to keep the code clean and maintainable. The frontend communicates with the backend using REST APIs and Axios.
+The system implements JWT-based authentication and role-based authorisation with two roles: ADMIN and EMPLOYEE. Administrators can manage employees, departments, attendance, and leave requests, while employees can access their own attendance and leave information.
 
-This project was developed to strengthen my understanding of full-stack application development, RESTful APIs, database integration, and React-Spring Boot communication.
+The project follows a layered architecture using Controller, Service, Repository, DTO, and Mapper components to maintain clean, modular, and maintainable code.
 
----
+The React frontend communicates with the Spring Boot backend through RESTful APIs using Axios.
 
-## Features
+## Key Features
+
+### Authentication and Security
+
+- JWT-based authentication
+- Secure password storage using BCrypt
+- Role-based authorisation
+- ADMIN and EMPLOYEE roles
+- Stateless authentication using Spring Security
+- Protected REST APIs
+- Automatic JWT validation for authenticated requests
+- Automatic redirection to login when the JWT expires
 
 ### Employee Management
-- Add Employee
-- View All Employees
-- Update Employee Details
-- Delete Employee
-- Assign Employees to Departments
+
+- Add employee
+- View employees
+- View employee details
+- Update employee details
+- Delete employee
+- Assign employees to departments
+- Search employees by name
+- Search employees by email
+- Sort employees by name, salary, and joining date
+- Filter employees by:
+  - Department
+  - Status
+  - Gender
+  - Salary range
+  - Joining date
+- Pagination
 
 ### Department Management
-- Add Department
-- View Departments
-- Update Department Details
-- Delete Department
+
+- Add department
+- View departments
+- Update department details
+- Delete department
+- Assign employees to departments
+
+### Leave Management
+
+- Apply for leave
+- View leave records
+- Employees can view their own leaves
+- Administrators can view employee leave records
+- Approve leave requests
+- Reject leave requests
+- Role-based leave management
+
+### Attendance Management
+
+- Employee check-in
+- Employee check-out
+- View attendance records
+- Employees can view their own attendance
+- Administrators can view all attendance records
+- Attendance by employee
+- Attendance by date
+- Delete attendance records for authorised users
 
 ### Dashboard
-- Total Employees
-- Total Departments
-- Active Employees
-- Inactive Employees
 
----
+The dashboard provides different information based on the logged-in user's role.
+
+#### Admin Dashboard
+
+- Total employees
+- Total departments
+- Active employees
+- Inactive employees
+- Employee management
+- Department management
+- Leave management
+
+#### Employee Dashboard
+
+- Employee email
+- Employee role
+- My Leaves
+- My Attendance
 
 ## Technologies Used
 
 ### Frontend
+
 - React.js
 - React Router
 - Axios
 - Bootstrap
+- JavaScript
+- JWT Decode
 
 ### Backend
+
+- Java
 - Spring Boot
+- Spring Security
 - Spring Data JPA
 - Hibernate
 - Jakarta Validation
+- Maven
+- JWT
 
 ### Database
+
 - PostgreSQL
 
----
+## Architecture
 
-## Project Structure
+The application follows a layered architecture:
 
-```
-React
-   │
-Axios
-   │
-REST APIs
-   │
-Controller
-   │
-Service
-   │
-DTO & Mapper
-   │
-Repository
-   │
-PostgreSQL
-```
-
----
-
-## Future Improvements
-
-The current version focuses on the core Employee and Department management features. Future enhancements include:
-
-- Spring Security Authentication
-- JWT-based Authorization
-- Role-Based Access Control
-- Employee Search
-- Pagination
-- Attendance Management
-- Leave Management
-
----
-
-## Author
-
-**Mannala Jayaprakash**
-
-B.Tech – Computer Science Engineering
-
-GitHub: https://github.com/JayaPrakash18-1
+```text
+React Frontend
+      |
+    Axios
+      |
+   REST APIs
+      |
+ Controller Layer
+      |
+ Service Layer
+      |
+ DTO / Mapper
+      |
+ Repository Layer
+      |
+ PostgreSQL
